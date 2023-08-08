@@ -1,13 +1,15 @@
 const httpStatus = require('http-status');
-// const pick = require('../middleware/pick');
 const ApiError = require('../middleware/ApiError');
 const catchAsync = require('../middleware/catchAsync');
 const defaultService = require('../service/default.service');
 
-// const createWallet = catchAsync(async (req, res) => {
-//   const user = await userService.createUser(req.body);
-//   res.status(httpStatus.CREATED).send(user);
-// });
+const createWallet = catchAsync(async (req, res) => {
+  const wallet = await defaultService.createWallet();
+  if (!wallet) {
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, 'Error creating wallet');
+  }
+  res.status(httpStatus.CREATED).send(wallet);
+});
 
 // const getUsers = catchAsync(async (req, res) => {
 //   const filter = pick(req.query, ['name', 'role']);
@@ -22,6 +24,6 @@ const validateAddress = catchAsync(async (req, res) => {
 });
 
 module.exports = {
-  // createWallet,
+  createWallet,
   validateAddress,
 };

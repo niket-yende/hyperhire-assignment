@@ -5,24 +5,35 @@ const ethers = require('ethers');
 
 /**
  * Create a wallet
- * @param {Object} userBody
- * @returns {Promise<User>}
+ * @param {String} privateKey
+ * @returns {Promise<Object>}
  */
-// const createWallet = async (userBody) => {
-//   if (await User.isEmailTaken(userBody.email)) {
-//     throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
-//   }
-//   return User.create(userBody);
-// };
+const createWallet = async () => {
+  // Creates a random wallet
+  const wallet = ethers.Wallet.createRandom();
+
+  const response = {
+    address: wallet.address,
+    mnemonic: wallet.mnemonic.phrase,
+    privateKey: wallet.privateKey,
+  };
+
+  return response;
+};
 
 const validateAddress = async (address) => {
   console.log(`Validating address: ${address}`);
   const isValidAddress = ethers.isAddress(address);
   console.log(`isValidAddress: ${isValidAddress}`);
-  return isValidAddress;
+
+  const response = {
+    valid: isValidAddress,
+  };
+
+  return response;
 };
 
 module.exports = {
-//   createWallet,
+  createWallet,
   validateAddress,
 };

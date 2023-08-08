@@ -5,12 +5,10 @@ const router = express.Router();
 const defaultController = require('../controller/default.controller');
 
 router.get('/', (req, res) => {
-  res.send({ message: 'Hello world' });
+  res.send({ message: 'Welcome to hyperhire assignment' });
 });
 
 router.get('/wallet/:address', defaultController.validateAddress);
-// router
-//   .route('/:address')
-//   .get(defaultController.validateAddress);
+router.post('/wallet', defaultController.createWallet);
 
 module.exports = router;
