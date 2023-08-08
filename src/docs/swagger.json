@@ -1,0 +1,281 @@
+{
+    "openapi" : "3.0.0",
+    "info": {
+        "title": "Hyperhire assignment",
+        "version": "1.0",
+        "description": "Ethers.js & ccxt interaction",
+        "contact": {
+            "name": "Niket Yende",
+            "email": "niket6@gmail.com",
+            "url": "https://www.linkedin.com/in/niket-yende/"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3000",
+            "description": "Demo API server"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "WalletCreationResponse" : {
+                "type": "object",
+                "properties": {
+                    "address" : {
+                        "type": "string"
+                    },
+                    "mnemonic": {
+                        "type": "string"
+                    },
+                    "privateKey": {
+                        "type": "string"
+                    }
+                }
+            },
+
+            "GetTransactionResponse" : {
+                "type": "object",
+                "properties": {
+                    "txHash": {
+                        "type": "string"
+                    },
+                    "sender": {
+                        "type": "string"
+                    },
+                    "receiver": {
+                        "type": "string"
+                    },
+                    "amount": {
+                        "type": "string"
+                    },
+                    "blockNumber" : {
+                        "type": "number"
+                    }
+                }
+            }
+        }
+    },
+    "paths": {
+        "/api/1.0/wallets" : {
+            "post" : {
+                "tags": [
+                    "Ethers.js"
+                ],
+                "summary": "Create a new wallet",
+                "parameters": [],
+                "responses": {
+                    "201" : {
+                        "description": "Post request creates a random wallet",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/WalletCreationResponse"
+                                },
+                                "examples" : {
+                                    "example-1" : {
+                                        "value": {
+                                            "address": "0x28A27Ba7E3764CD29cdaFBbd717d01ac21eF0aEE",
+                                            "mnemonic": "cruel cruise barrel spare twenty long supply text pool provide chapter trumpet",
+                                            "privateKey": "0xaadb448c58bb34d2f0ccce2b4c9a216ad9300be18aa5225128510cd40b53e1cd"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/1.0/wallets/{address}" : {
+            "get" : {
+                "tags": [
+                    "Ethers.js"
+                ],
+                "summary": "Validate wallet address",
+                "parameters": [
+                    {
+                        "name": "address",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Returns true if the wallet address is valid",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "valid" : {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "examples" : {
+                                    "example-1" : {
+                                        "value": {
+                                            "valid": true
+                                        }
+                                    },
+                                    "example-2" : {
+                                        "value": {
+                                            "valid": false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/1.0/transactions" : {
+            "get" : {
+                "tags": [
+                    "Ethers.js"
+                ],
+                "summary": "List latest sorted transactions by amount of transferred ether",
+                "parameters": [
+                    {
+                        "name": "count",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "number"
+                        }
+                    },
+                    {
+                        "name": "api-key",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "connect-url",
+                        "in": "header",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Returns list of recent transactions",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "$ref" : "#/components/schemas/GetTransactionResponse"
+                                },
+                                "examples" : {
+                                    "example-1" : {
+                                        "value": [{
+                                            "txHash": "0x2ac3472de48b2b5f5dd6c2fb478aac14f39ae170436ea9518f418bcbbba6ab1b",
+                                            "sender": "0xfD47c728605200ae3622859B59ccE54dCCe6563C",
+                                            "receiver": "0xDBF5E9c5206d0dB70a90108bf936DA60221dC080",
+                                            "amount": "86.167651",
+                                            "blockNumber": 17871523
+                                        }]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/1.0/ccxt/tradable" : {
+            "get" : {
+                "tags": [
+                    "Ccxt"
+                ],
+                "summary": "Get tradable coins of an exchange",
+                "parameters": [
+                    {
+                        "name": "chainId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Returns coins traded in an exchange",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                },
+                                "examples" : {
+                                    "example-1" : {
+                                        "value": [
+                                            "ETH/BTC",
+                                            "LTC/BTC",
+                                            "BNB/BTC",
+                                            "NEO/BTC",
+                                            "QTUM/ETH",
+                                            "EOS/ETH",
+                                            "SNT/ETH",
+                                            "BNT/ETH"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/1.0/ccxt/average-price" : {
+            "get" : {
+                "tags": [
+                    "Ccxt"
+                ],
+                "summary": "Get average coin price",
+                "parameters": [
+                    {
+                        "name": "chainId",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200" : {
+                        "description": "Returns list of coins traded with their avg price",
+                        "content": {
+                            "application/json" : {
+                                "schema" : {
+                                    "type": "object"
+                                },
+                                "examples" : {
+                                    "example-1" : {
+                                        "value": {
+                                            "ETH/BTC": 0.06230689999999997,
+                                            "LTC/BTC": 0.002858169999999997,
+                                            "BNB/BTC": 0.008229950000000007,
+                                            "NEO/BTC": 0.00028608700000000003,
+                                            "QTUM/ETH": 0.0013867500000000004,
+                                            "EOS/ETH": 0.00039230899999999987
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
