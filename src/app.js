@@ -4,7 +4,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
 
-const defaultRouter = require('./routes/default.route');
+const defaultRouter = require('./route/default.route');
 
 const errorHandler = require('./middleware/errorHandler');
 
