@@ -1,7 +1,6 @@
-// const httpStatus = require('http-status');
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-plusplus */
 const ethers = require('ethers');
-// const { User } = require('../models');
-// const ApiError = require('../middleware/ApiError');
 
 /**
  * Create a wallet
@@ -33,7 +32,49 @@ const validateAddress = async (address) => {
   return response;
 };
 
+const getLatestTransactions = async (connectUrl, apiKey, txCount) => {
+  const provider = new ethers.JsonRpcProvider(`${connectUrl}/${apiKey}`);
+  // Get the latest block number
+  const latestBlockNumber = await provider.getBlockNumber();
+  console.log('latestBlockNumber ', latestBlockNumber);
+
+  // Calculate the range of block numbers to fetch
+  const startBlock = Math.max(latestBlockNumber - 10, 0) + 1;
+  const endBlock = latestBlockNumber;
+
+  // Fetch the latest 1000 transactions in parallel
+  const transactions = [];
+  for (let i = startBlock; i <= endBlock; i++) {
+    const block = await provider.getBlock(i);
+    console.log(block.transactions.length);
+    transactions.push(...block.transactions);
+    if (transactions.length > txCount) {
+      break;
+    }
+  }
+  const filteredTransactions = transactions.slice(txCount * -1);
+
+  // Process and sort the transactions
+  const processedTransactions = await Promise.all(filteredTransactions.map(async (transaction) => {
+    const tx = await provider.getTransaction(transaction);
+    const sender = tx.from;
+    const receiver = tx.to || '(Contract Creation)';
+    const amount = tx.value ? ethers.formatEther(tx.value) : '0';
+    const { blockNumber } = tx;
+    return {
+      txHash: tx.hash, sender, receiver, amount, blockNumber,
+    };
+  }));
+
+  // Sort transactions by amount of ether transferred
+  // eslint-disable-next-line max-len
+  const sortedTransactions = processedTransactions.sort((a, b) => parseFloat(b.amount) - parseFloat(a.amount));
+
+  return sortedTransactions;
+};
+
 module.exports = {
   createWallet,
   validateAddress,
+  getLatestTransactions,
 };

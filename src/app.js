@@ -3,10 +3,12 @@ const createError = require('http-errors');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const helmet = require('helmet');
+const httpStatus = require('http-status');
 
 const defaultRouter = require('./route/default.route');
 
-const errorHandler = require('./middleware/errorHandler');
+const { errorConverter, errorHandler } = require('./middleware/error');
+const ApiError = require('./middleware/ApiError');
 
 const app = express();
 
@@ -24,6 +26,17 @@ app.use((req, res, next) => {
 });
 
 // pass any unhandled errors to the error handler
+app.use(errorHandler);
+
+// send back a 404 error for any unknown api request
+app.use((req, res, next) => {
+  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+});
+
+// convert error to ApiError, if needed
+app.use(errorConverter);
+
+// handle error
 app.use(errorHandler);
 
 module.exports = app;

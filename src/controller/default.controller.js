@@ -11,12 +11,25 @@ const createWallet = catchAsync(async (req, res) => {
   res.status(httpStatus.CREATED).send(wallet);
 });
 
-// const getUsers = catchAsync(async (req, res) => {
-//   const filter = pick(req.query, ['name', 'role']);
-//   const options = pick(req.query, ['sortBy', 'limit', 'page']);
-//   const result = await userService.queryUsers(filter, options);
-//   res.send(result);
-// });
+const getLatestTransactions = catchAsync(async (req, res) => {
+  const { count } = req.query;
+  console.log('count ', count);
+  const connectUrl = req.headers['connect-url'];
+  console.log('connectUrl ', connectUrl);
+  const apiKey = req.headers['api-key'];
+  console.log('apiKey ', apiKey);
+  if (!count) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide the value for count');
+  }
+  if (!connectUrl) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide the value for connection-url');
+  }
+  if (!apiKey) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide the value for api-key');
+  }
+  const result = await defaultService.getLatestTransactions(connectUrl, apiKey, count);
+  res.send(result);
+});
 
 const validateAddress = catchAsync(async (req, res) => {
   const isValidAddress = await defaultService.validateAddress(req.params.address);
@@ -26,4 +39,5 @@ const validateAddress = catchAsync(async (req, res) => {
 module.exports = {
   createWallet,
   validateAddress,
+  getLatestTransactions,
 };

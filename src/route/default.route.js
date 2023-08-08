@@ -10,5 +10,6 @@ router.get('/', (req, res) => {
 
 router.get('/wallet/:address', defaultController.validateAddress);
 router.post('/wallet', defaultController.createWallet);
+router.get('/transactions', defaultController.getLatestTransactions);
 
 module.exports = router;
