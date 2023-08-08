@@ -15,13 +15,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/wallets/0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+							"raw": "http://localhost:3000/api/1.0/wallets/0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"1.0",
 								"wallets",
 								"0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
 							]
@@ -48,13 +50,15 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/transactions?count=1000",
+							"raw": "http://localhost:3000/api/1.0/transactions?count=1000",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"1.0",
 								"transactions"
 							],
 							"query": [
@@ -73,13 +77,15 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/wallets",
+							"raw": "http://localhost:3000/api/1.0/wallets",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"1.0",
 								"wallets"
 							]
 						}
@@ -97,13 +103,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/ccxt/tradable?chainId=binance",
+							"raw": "http://localhost:3000/api/1.0/ccxt/tradable?chainId=binance",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"1.0",
 								"ccxt",
 								"tradable"
 							],
@@ -124,13 +132,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/ccxt/average-price?chainId=binance",
+							"raw": "http://localhost:3000/api/1.0/ccxt/average-price?chainId=binance",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "3000",
 							"path": [
+								"api",
+								"1.0",
 								"ccxt",
 								"average-price"
 							],
