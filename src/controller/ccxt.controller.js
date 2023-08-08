@@ -1,5 +1,3 @@
-const httpStatus = require('http-status');
-const ApiError = require('../middleware/ApiError');
 const catchAsync = require('../middleware/catchAsync');
 const ccxtService = require('../service/ccxt.service');
 
@@ -12,7 +10,10 @@ const getTradableCoins = catchAsync(async (req, res) => {
 });
 
 const getAvgCoinPrices = catchAsync(async (req, res) => {
-  const coinPrices = await ccxtService.getAvgCoinPrices(req.params.address);
+  const { chainId } = req.query;
+  console.log('chainId ', chainId);
+  const chain = chainId || 'binance';
+  const coinPrices = await ccxtService.getAvgCoinPrices(chain);
   res.send(coinPrices);
 });
 

@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/niket-yende/hyperhire-assignment#readme",
   "dependencies": {
+    "ccxt": "^4.0.53",
     "cookie-parser": "^1.4.5",
     "dotenv": "^16.3.1",
     "ethers": "^6.7.0",
