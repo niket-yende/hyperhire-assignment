@@ -6,6 +6,8 @@
     },
     "rules": {
         // "no-console": 2, // Remember, this means error!
+        "linebreak-style": "off",
+        "no-console": "off",
         "require-jsdoc": 0,
         "max-len": [
           2,
