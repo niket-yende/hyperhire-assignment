@@ -1,0 +1,151 @@
+{
+	"info": {
+		"_postman_id": "d24e97d1-89ca-4b06-97bd-273b72c594ae",
+		"name": "hyperhire-assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29016636"
+	},
+	"item": [
+		{
+			"name": "ethers.js",
+			"item": [
+				{
+					"name": "Validate wallet address",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/wallets/0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallets",
+								"0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get latest transactions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "api-key",
+								"value": "",
+								"description": "Infura API Key",
+								"type": "text"
+							},
+							{
+								"key": "connect-url",
+								"value": "https://mainnet.infura.io/v3",
+								"description": "Infura mainnet url",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/transactions?count=1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"transactions"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1000"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create wallet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/wallets",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"wallets"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ccxt",
+			"item": [
+				{
+					"name": "Get tradable coins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/ccxt/tradable?chainId=binance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ccxt",
+								"tradable"
+							],
+							"query": [
+								{
+									"key": "chainId",
+									"value": "binance",
+									"description": "Eg. binance, coinone, novadax, bitfinex2 etc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get average coin price",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/ccxt/average-price?chainId=binance",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ccxt",
+								"average-price"
+							],
+							"query": [
+								{
+									"key": "chainId",
+									"value": "binance",
+									"description": "Eg. binance"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
