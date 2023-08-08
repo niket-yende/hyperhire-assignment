@@ -27,7 +27,7 @@ const getLatestTransactions = catchAsync(async (req, res) => {
   if (!apiKey) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide the value for api-key');
   }
-  const result = await defaultService.getLatestTransactions(connectUrl, apiKey, count);
+  const result = await defaultService.getLatestTransactions(connectUrl, apiKey, +count);
   res.send(result);
 });
 

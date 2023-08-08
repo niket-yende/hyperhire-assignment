@@ -4,8 +4,8 @@ const ethers = require('ethers');
 
 /**
  * Create a wallet
- * @param {String} privateKey
- * @returns {Promise<Object>}
+ * @param {string} privateKey
+ * @returns {Promise<{ address: string, mnemonic: string, privateKey: string }>}
  */
 const createWallet = async () => {
   // Creates a random wallet
@@ -20,6 +20,11 @@ const createWallet = async () => {
   return response;
 };
 
+/**
+ * Metjpd to validate wallet address
+ * @param {string} address
+ * @returns {Promise<{ valid: boolean }>}
+ */
 const validateAddress = async (address) => {
   console.log(`Validating address: ${address}`);
   const isValidAddress = ethers.isAddress(address);
@@ -32,6 +37,19 @@ const validateAddress = async (address) => {
   return response;
 };
 
+/**
+ * Method to get latest sorted transactions by amount of transferred ether
+ * @param {String} connectUrl
+ * @param {String} apiKey
+ * @param {number} txCount
+ * @returns {Promise<Array<{
+ *   txHash: string,
+ *   sender: string,
+ *   receiver: string,
+ *   amount: string,
+ *   blockNumber: number
+ * }>} An array of processed and sorted transaction details.
+ */
 const getLatestTransactions = async (connectUrl, apiKey, txCount) => {
   const provider = new ethers.JsonRpcProvider(`${connectUrl}/${apiKey}`);
   // Get the latest block number

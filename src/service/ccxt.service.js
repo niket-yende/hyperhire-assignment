@@ -1,6 +1,11 @@
 /* eslint-disable import/no-unresolved */
 const ccxt = require('ccxt');
 
+/**
+ * Method to get tradable coins for an exchange
+ * @param {string} chainId
+ * @returns {Promise<String[]>}
+ */
 const getTradableCoins = async (chainId) => {
   const exchange = new ccxt[chainId]();
   const markets = await exchange.loadMarkets();
@@ -8,6 +13,11 @@ const getTradableCoins = async (chainId) => {
   return tradableCoins;
 };
 
+/**
+ * Method to get average coin prices
+ * @param {string} chainId
+ * @returns {Promise<{coinSymbol: number}>}
+ */
 const getAvgCoinPrices = async (chainId) => {
   const exchange = new ccxt[chainId]();
   const markets = await exchange.loadMarkets();
