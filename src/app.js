@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const httpStatus = require('http-status');
 
 const defaultRouter = require('./route/default.route');
+const ccxtRouter = require('./route/ccxt.route');
 
 const { errorConverter, errorHandler } = require('./middleware/error');
 const ApiError = require('./middleware/ApiError');
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/', defaultRouter);
+app.use('/ccxt', ccxtRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

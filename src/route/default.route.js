@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
   res.send({ message: 'Welcome to hyperhire assignment' });
 });
 
-router.get('/wallet/:address', defaultController.validateAddress);
-router.post('/wallet', defaultController.createWallet);
+router.get('/wallets/:address', defaultController.validateAddress);
+router.post('/wallets', defaultController.createWallet);
 router.get('/transactions', defaultController.getLatestTransactions);
 
 module.exports = router;
