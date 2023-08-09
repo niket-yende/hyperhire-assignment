@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 const ccxt = require('ccxt');
+const logger = require('../lib/logger');
 
 /**
  * Method to get tradable coins for an exchange
@@ -7,6 +8,7 @@ const ccxt = require('ccxt');
  * @returns {Promise<String[]>}
  */
 const getTradableCoins = async (chainId) => {
+  logger.debug('ccxt.service: invoked service method getTradableCoins');
   const exchange = new ccxt[chainId]();
   const markets = await exchange.loadMarkets();
   const tradableCoins = Object.keys(markets);
@@ -19,6 +21,7 @@ const getTradableCoins = async (chainId) => {
  * @returns {Promise<{coinSymbol: number}>}
  */
 const getAvgCoinPrices = async (chainId) => {
+  logger.debug('ccxt.service: invoked service method getAvgCoinPrices');
   const exchange = new ccxt[chainId]();
   const markets = await exchange.loadMarkets();
 

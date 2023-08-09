@@ -2,6 +2,7 @@ const httpStatus = require('http-status');
 const ApiError = require('../middleware/ApiError');
 const catchAsync = require('../middleware/catchAsync');
 const defaultService = require('../service/default.service');
+const logger = require('../lib/logger');
 
 const createWallet = catchAsync(async (req, res) => {
   const wallet = await defaultService.createWallet();
@@ -13,11 +14,10 @@ const createWallet = catchAsync(async (req, res) => {
 
 const getLatestTransactions = catchAsync(async (req, res) => {
   const { count } = req.query;
-  console.log('count ', count);
+  logger.debug(`count: ${count}`);
   const connectUrl = req.headers['connect-url'];
-  console.log('connectUrl ', connectUrl);
+  logger.debug(`connectUrl: ${connectUrl}`);
   const apiKey = req.headers['api-key'];
-  console.log('apiKey ', apiKey);
   if (!count) {
     throw new ApiError(httpStatus.BAD_REQUEST, 'Please provide the value for count');
   }

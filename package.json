@@ -35,7 +35,8 @@
     "http-status": "^1.6.2",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
