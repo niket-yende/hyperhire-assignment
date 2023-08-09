@@ -16,7 +16,7 @@ $ npm start
 ```
 
 ## Swagger
-[Api-docs](http://localhost:3000/api-docs) - Pass the infura api-key for getting the latest transactions.
+[Api-docs](http://localhost:3000/api-docs) - pass the infura api-key for getting the latest transactions.
 
 # Assignment details
 
